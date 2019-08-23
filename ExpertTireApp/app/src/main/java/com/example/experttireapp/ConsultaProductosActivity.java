@@ -25,6 +25,7 @@ public class ConsultaProductosActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        // Comentario
         switch (item.getItemId()) {
             case R.id.menu_consultar:
                 //showHelp();
