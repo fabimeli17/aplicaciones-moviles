@@ -16,7 +16,7 @@
     </string>
     <string name="login_ingresar">Ingresar</string>
     <string name="login_registrar">Registrar</string>
-    <string name="title_activity_ubicacion_venta_delivery">Map</string>
+    <string name="title_activity_ubicacion_venta_delivery">Venta Delivery</string>
     <string name="title_activity_comprar_producto">ComprarProducto</string>
     <string name="title_activity_solicitar_asistencia">Map</string>
     <string name="title_activity_notificaciones">NotificacionesActivity</string>

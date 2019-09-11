@@ -3,6 +3,7 @@ package com.example.experttireapp;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class UbicacionVentaDeliveryActivity extends FragmentActivity implements OnMapReadyCallback {
+public class UbicacionVentaDeliveryActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -117,8 +118,10 @@ public class UbicacionVentaDeliveryActivity extends FragmentActivity implements 
         LocalesDAO dao = new LocalesDAO(getBaseContext());
         try {
             LocalesBean local = dao.obtener();
-            Double latitud = local.getLatitud();
-            Double longitud = local.getLongitud();
+            //Double latitud = local.getLatitud();
+            //Double longitud = local.getLongitud();
+            Double latitud = -12.0888719;
+            Double longitud = -77.0480961;
             String descripcion = local.getDescripcion();
 
 
@@ -126,6 +129,10 @@ public class UbicacionVentaDeliveryActivity extends FragmentActivity implements 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(latitud, longitud);
         mMap.addMarker(new MarkerOptions().position(sydney).title(descripcion));
+
+            LatLng sydney2 = new LatLng(-12.0788719, -77.0480961);
+            mMap.addMarker(new MarkerOptions().position(sydney2).title(descripcion));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11F));
         } catch (DAOException e) {
             Log.i("UbicaVenDeliActi", "====> " + e.getMessage());

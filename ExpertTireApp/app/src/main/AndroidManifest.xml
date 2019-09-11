@@ -19,9 +19,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Login2Activity">
 
-        <activity android:name=".MantenimientoLocalesActivity"></activity>
-        <activity android:name=".BienvenidaActivity" />
+        </activity>
+
+        <activity android:name=".MantenimientoLocalesActivity" />
+        <activity android:name=".BienvenidaActivity">
+        </activity>
+
         <activity android:name=".MenuSuperiorActivity" />
         <activity
             android:name=".MenuLateralActivity"
@@ -54,19 +59,15 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
-
     </application>
 
 </manifest>

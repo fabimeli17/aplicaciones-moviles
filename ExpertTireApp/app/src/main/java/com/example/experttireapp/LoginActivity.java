@@ -447,8 +447,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+
+
+
     public void ingresar (View view) {
         Intent intentLogIn = new Intent(this, MenuSuperiorActivity.class);
+        intentLogIn.putExtra("usuarioNombre","Diego Mori");
         startActivity(intentLogIn);
     }
 

@@ -81,7 +81,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/login_ingresar"
                 android:textStyle="bold"
-                android:onClick="ingresar"/>
+                android:onClick="ingresar"
+                />
 
             <Button
                 android:id="@+id/email_sign_in_button3"
@@ -91,7 +92,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/login_registrar"
                 android:textStyle="bold"
-                android:onClick="registrar"/>
+                />
 
         </LinearLayout>
     </ScrollView>
