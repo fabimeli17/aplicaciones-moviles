@@ -4,15 +4,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.util.Date;
 
 
 public class FotoPedidoActivity extends AppCompatActivity {
@@ -27,6 +34,20 @@ public class FotoPedidoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foto_pedido);
         miImagen = findViewById(R.id.foto);
+
+        /*
+        FotoPedidoBean fotoPedidoBean = obtenerFotoPedidoPorUsuario(1);
+        Log.i("FotoPedidoActivity", "====> " + fotoPedidoBean.getComentarios());
+        byte[] bArray = fotoPedidoBean.getFoto();
+        Log.i("FotoPedidoActivity", "====> " + bArray.toString());
+        Bitmap bmp = BitmapFactory.decodeByteArray(bArray, 0, bArray.length);
+
+
+        miImagen.setImageBitmap(
+                Bitmap.createScaledBitmap(bmp, 250,
+                250, false));
+*/
+
     }
 
     public void tomarFoto(View view) {
@@ -40,20 +61,52 @@ public class FotoPedidoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        Log.i("======>", "antes");
         if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode==RESULT_OK)
         {
-            Log.i("======>", "dentro");
             Bundle extras = data.getExtras();
             Bitmap imagenBit = (Bitmap) extras.get("data");
             miImagen.setImageBitmap(imagenBit);
-
-            Log.i("======>", imagenBit.;
-
-
         }
-        Log.i("======>", "despues");
+    }
 
+    public void solicitarPedidoFoto(View view) {
+
+        miImagen = findViewById(R.id.foto);
+        Bitmap photo = ((BitmapDrawable)miImagen.getDrawable()).getBitmap();
+        OutputStream bos = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = ((ByteArrayOutputStream) bos).toByteArray();
+        String fecha = (new Date()).toString();
+        EditText textComentarios = (EditText) findViewById(R.id.comentarios);
+        String comentarios = textComentarios.getText().toString();
+
+        FotoPedidoDAO dao = new FotoPedidoDAO(getBaseContext());
+        try {
+
+
+            dao.insertar(
+                    bArray, fecha, "1",comentarios
+            );
+            Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+            textComentarios.setText("");
+        } catch (DAOException e) {
+            Log.i("FotoPedidoActivity", "====> " + e.getMessage());
+        }
+
+    }
+
+    private FotoPedidoBean obtenerFotoPedidoPorUsuario(Integer usuario){
+        FotoPedidoBean fotoPedidoBean = new FotoPedidoBean();
+
+        FotoPedidoDAO dao = new FotoPedidoDAO(getBaseContext());
+        try {
+            fotoPedidoBean = dao.obtenerPorUsuario(usuario);
+        } catch (DAOException e) {
+            Log.i("FotoPedidoActivity", "====> " + e.getMessage());
+        }
+        return  fotoPedidoBean;
     }
 
     /*
@@ -171,6 +224,7 @@ public class FotoPedidoActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 
 }

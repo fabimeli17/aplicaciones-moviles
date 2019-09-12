@@ -15,7 +15,7 @@
         android:text="Tomar Foto"
         android:onClick="tomarFoto"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="25dp"
         />
 
     <ImageView
@@ -23,7 +23,25 @@
         android:layout_height="250dp"
         android:src="@mipmap/ic_launcher"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="25dp"
         android:id="@+id/foto"
         />
+
+    <EditText
+        android:id="@+id/comentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingresar Comentario"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="200"
+        android:maxLines="12" />
+
+    <Button
+        android:id="@+id/solicitarPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="solicitarPedidoFoto"
+        android:text="Solicitar Pedido" />
+
+
 </LinearLayout>

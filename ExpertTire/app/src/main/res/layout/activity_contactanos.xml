@@ -25,7 +25,7 @@
 
     <EditText
         android:id="@+id/mensaje"
-        android:hint="Enter message"
+        android:hint="Ingresar mensaje"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="12"
