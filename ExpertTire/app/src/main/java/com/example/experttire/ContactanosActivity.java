@@ -3,23 +3,36 @@ package com.example.experttire;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class BienvenidaActivity extends AppCompatActivity {
+public class ContactanosActivity extends AppCompatActivity {
 
-    @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bienvenida);
-        final TextView textoBienvenida = (TextView) findViewById(R.id.nombre);
-        textoBienvenida.setText("Bienvenido Diego Mori");
+        setContentView(R.layout.activity_contactanos);
+        Button botonLlamar = (Button) findViewById(R.id.llamar);
+        final TextView telefono = (TextView) findViewById(R.id.telefono);
+        telefono.setText("997939365");
 
+        botonLlamar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String dial = "tel:" + telefono.getText().toString();
+                Log.i("======>", dial);
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,6 +117,5 @@ public class BienvenidaActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 }

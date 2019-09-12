@@ -42,7 +42,18 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.setTrafficEnabled(true);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+
         mMap = googleMap;
+
+
+
 
         Double latitud = -12.0888719;
         Double longitud = -77.0480961;
@@ -95,6 +106,14 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
                 startActivity(intent);
                 Log.i("======>", "click en menu_punto_venta...");
                 return true;
+            case R.id.menu_contactenos:
+                //newGame();
+                intent = new Intent(this, ContactanosActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_contactenos...");
+                return true;
+
+
                 /*
             case R.id.menu_consultar:
                 //showHelp();

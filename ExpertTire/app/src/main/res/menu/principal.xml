@@ -10,12 +10,17 @@
 
     <item
         android:id="@+id/menu_punto_venta"
-        android:title="Ubicar Punto Venta"
+        android:title="Ubicanos"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_contactenos"
+        android:title="Contactenos"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_delivery"
-        android:title="Venta Delivery"
+        android:title="Delivery"
         app:showAsAction="never"/>
 
     <item
@@ -23,10 +28,7 @@
         android:title="Consultar Llantas"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/menu_llamar"
-        android:title="Llamar tienda"
-        app:showAsAction="never"/>
+
 
     <item
         android:id="@+id/menu_pedido"
