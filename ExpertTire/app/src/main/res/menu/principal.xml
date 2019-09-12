@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_bienvenida"
+        android:title="Bienvenida"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/menu_punto_venta"
+        android:title="Ubicar Punto Venta"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_delivery"
+        android:title="Venta Delivery"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_consultar"
+        android:title="Consultar Llantas"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_llamar"
+        android:title="Llamar tienda"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_pedido"
+        android:title="Solicitar Pedido"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_comprar"
+        android:title="Comprar Llanta"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_asistencia"
+        android:title="Asistencia Técnica"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_notificaciones"
+        android:title="Notificaciones"
+        app:showAsAction="never"/>
+
+
+
+</menu>
