@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class ContactanosActivity extends AppCompatActivity {
@@ -20,18 +22,40 @@ public class ContactanosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contactanos);
         Button botonLlamar = (Button) findViewById(R.id.llamar);
-        final TextView telefono = (TextView) findViewById(R.id.telefono);
-        telefono.setText("997939365");
+        final TextView textTelefono = (TextView) findViewById(R.id.telefono);
+        textTelefono.setText("997939365");
+        final String telefono = textTelefono.getText().toString();
 
         botonLlamar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String dial = "tel:" + telefono.getText().toString();
-                Log.i("======>", dial);
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+
+                Log.i("======>", telefono);
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + telefono)));
             }
         });
+
+        Button sendMessageBtn = (Button) findViewById(R.id.enviarMensaje);
+        final EditText messagetEt = (EditText) findViewById(R.id.mensaje);
+        sendMessageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = messagetEt.getText().toString();
+                //String phoneNo = mPhoneNoEt.getText().toString();
+                if(!TextUtils.isEmpty(message) && !TextUtils.isEmpty(telefono)) {
+                    Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + telefono));
+                    smsIntent.putExtra("sms_body", message);
+                    startActivity(smsIntent);
+                }
+            }
+        });
+//
+
+
     }
+
+
+
 
 
     @Override
