@@ -1,83 +1,91 @@
 package com.example.experttire;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+
+public class FotoPedidoActivity extends AppCompatActivity {
+
+
+
+    private ImageView miImagen;
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubicar_punto_venta);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        setContentView(R.layout.activity_foto_pedido);
+        miImagen = findViewById(R.id.foto);
     }
 
+    public void tomarFoto(View view) {
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager())!=null){
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        Log.i("======>", "antes");
+        if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode==RESULT_OK)
+        {
+            Log.i("======>", "dentro");
+            Bundle extras = data.getExtras();
+            Bitmap imagenBit = (Bitmap) extras.get("data");
+            miImagen.setImageBitmap(imagenBit);
 
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.setTrafficEnabled(true);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
-        mMap = googleMap;
-
-
-
-
-        Double latitud = -12.0888719;
-        Double longitud = -77.0480961;
-        String descripcion = "Punto de Venta 1";
-
-        LatLng ubicacion = new LatLng(latitud, longitud);
-        mMap.addMarker(new MarkerOptions().position(ubicacion).title(descripcion));
-
-        Double latitud2 = -12.0788719;
-        Double longitud2 = -77.0480961;
-        String descripcion2 = "Punto de Venta 2";
-
-        LatLng ubicacion2 = new LatLng(latitud2, longitud2);
-        mMap.addMarker(new MarkerOptions().position(ubicacion2).title(descripcion2));
+            Log.i("======>", imagenBit.;
 
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion, 13F));
-        // Add a marker in Sydney and move the camera
-        /*
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-         */
+        }
+        Log.i("======>", "despues");
+
     }
+
+    /*
+    private Button btnCapture;
+    private ImageView imgCapture;
+    private static final int Image_Capture_Code = 1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btnCapture =(Button)findViewById(R.id.btnFotoPedido);
+        imgCapture = (ImageView) findViewById(R.id.imagen);
+        btnCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cInt,Image_Capture_Code);
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Image_Capture_Code) {
+            if (resultCode == RESULT_OK) {
+                Bitmap bp = (Bitmap) data.getExtras().get("data");
+                imgCapture.setImageBitmap(bp);
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,7 +171,6 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 }

@@ -93,6 +93,12 @@ public class ContactanosActivity extends AppCompatActivity {
                 Log.i("======>", "click en menu_contactenos...");
                 return true;
 
+            case R.id.menu_foto_pedido:
+                //newGame();
+                intent = new Intent(this, FotoPedidoActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_foto_pedido...");
+                return true;
             /*
             case R.id.menu_consultar:
                 //showHelp();
