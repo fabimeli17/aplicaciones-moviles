@@ -24,6 +24,12 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/menu_notificaciones"
+        android:title="Notificaciones"
+        app:showAsAction="never"/>
+
+
+    <item
         android:id="@+id/menu_delivery"
         android:title="Delivery"
         app:showAsAction="never"/>
@@ -47,10 +53,7 @@
         android:title="Asistencia Técnica"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/menu_notificaciones"
-        android:title="Notificaciones"
-        app:showAsAction="never"/>
+
 
 
 

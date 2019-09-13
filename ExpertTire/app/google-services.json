@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "818668546848",
+    "firebase_url": "https://experttireapp.firebaseio.com",
+    "project_id": "experttireapp",
+    "storage_bucket": "experttireapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818668546848:android:63adfa163465cdaddd4545",
+        "android_client_info": {
+          "package_name": "com.example.experttire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818668546848-25ldb0vr3ii2vphpm26b6it2ifo5gsbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.experttire",
+            "certificate_hash": "eb116c463a5f6b508181274723b62daf65f53939"
+          }
+        },
+        {
+          "client_id": "818668546848-ssv23d8qrbcepupmqefadgk8r66026kn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADX_pfj-yiJ1bi-prog7S53buMwWfW_7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818668546848-ssv23d8qrbcepupmqefadgk8r66026kn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

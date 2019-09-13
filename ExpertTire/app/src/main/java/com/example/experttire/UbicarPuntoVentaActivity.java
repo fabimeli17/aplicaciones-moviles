@@ -120,6 +120,12 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
                 Log.i("======>", "click en menu_foto_pedido...");
                 return true;
 
+            case R.id.menu_notificaciones:
+                intent = new Intent(this, NotificacionesActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_notificaciones...");
+                return true;
+
                 /*
             case R.id.menu_consultar:
                 //showHelp();
