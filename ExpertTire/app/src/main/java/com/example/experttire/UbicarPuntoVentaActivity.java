@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.experttire.ui.login.LoginActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -124,6 +125,12 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
                 intent = new Intent(this, NotificacionesActivity.class);
                 startActivity(intent);
                 Log.i("======>", "click en menu_notificaciones...");
+                return true;
+
+            case R.id.menu_cerrar:
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_cerrar...");
                 return true;
 
                 /*

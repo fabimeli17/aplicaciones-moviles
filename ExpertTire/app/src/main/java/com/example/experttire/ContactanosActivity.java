@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.experttire.ui.login.LoginActivity;
+
 public class ContactanosActivity extends AppCompatActivity {
 
 
@@ -105,7 +107,14 @@ public class ContactanosActivity extends AppCompatActivity {
                 startActivity(intent);
                 Log.i("======>", "click en menu_notificaciones...");
                 return true;
-            /*
+
+            case R.id.menu_cerrar:
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_cerrar...");
+                return true;
+
+                /*
             case R.id.menu_consultar:
                 //showHelp();
                 Intent intentConsultar = new Intent(this, ConsultaProductosActivity.class);

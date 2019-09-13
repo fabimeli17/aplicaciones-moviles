@@ -28,6 +28,10 @@
         android:title="Notificaciones"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/menu_cerrar"
+        android:title="Cerrar sesion"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_delivery"
@@ -38,10 +42,6 @@
         android:id="@+id/menu_consultar"
         android:title="Consultar Llantas"
         app:showAsAction="never"/>
-
-
-
-
 
     <item
         android:id="@+id/menu_comprar"
