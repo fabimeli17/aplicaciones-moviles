@@ -16,8 +16,12 @@ public class BienvenidaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bienvenida);
+
+        Bundle bundle = getIntent().getExtras();
+        String correo=bundle.getString("correo");
+
         final TextView textoBienvenida = (TextView) findViewById(R.id.nombre);
-        textoBienvenida.setText("Bienvenido Diego Mori");
+        textoBienvenida.setText("Bienvenido " + correo);
 
     }
 

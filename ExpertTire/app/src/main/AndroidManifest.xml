@@ -19,11 +19,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <meta-data  android:name="com.google.firebase.messaging.default_notification_channel_id"
-                    android:value=" my_channel_id_01" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-        <activity android:name=".NotificacionesActivity"></activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value=" my_channel_id_01" />
+
+        <activity android:name=".NotificacionesActivity" />
         <activity android:name=".FotoPedidoActivity" />
         <activity android:name=".ContactanosActivity" />
         <!--
@@ -42,20 +52,17 @@
             android:name=".UbicarPuntoVentaActivity"
             android:label="@string/title_activity_ubicar_punto_venta" />
         <activity android:name=".BienvenidaActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
 
-        <service android:name=".MyAndroidFirebaseMsgService" android:exported="false">
+        <service
+            android:name=".MyAndroidFirebaseMsgService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
