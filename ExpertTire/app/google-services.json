@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "818668546848-25ldb0vr3ii2vphpm26b6it2ifo5gsbs.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.experttire",
-            "certificate_hash": "eb116c463a5f6b508181274723b62daf65f53939"
-          }
-        },
-        {
           "client_id": "818668546848-ssv23d8qrbcepupmqefadgk8r66026kn.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -41,19 +42,19 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
 
     }
 
-    @SuppressLint("WrongConstant")
+
     private void createNotification(String messageBody) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("my_channel_id_01", "my_channel_id_01", importance);
 
             channel.setDescription("my_channel_id_01");
             notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-        //}
+        }
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
@@ -69,7 +70,7 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                 //.setWhen(System.currentTimeMillis())
                 .setContentIntent(actionPendingIntent)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setBadgeIconType(R.mipmap.ic_launcher)
+                //.setBadgeIconType(R.mipmap.ic_launcher)
                 .setContentTitle("Curso de Android")
                 //.setSound(Uri.parse("android.resource://"+getPackageName()+"/" + R.raw.beeep))
                 .setContentText(messageBody)
