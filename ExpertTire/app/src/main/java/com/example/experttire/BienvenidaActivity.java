@@ -75,6 +75,12 @@ public class BienvenidaActivity extends AppCompatActivity {
                 Log.i("======>", "click en menu_notificaciones...");
                 return true;
 
+            case R.id.menu_preferencias:
+                intent = new Intent(this, PreferenciasActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_preferencias...");
+                return true;
+
             case R.id.menu_cerrar:
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);

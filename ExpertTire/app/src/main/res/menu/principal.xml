@@ -29,6 +29,11 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/menu_preferencias"
+        android:title="Preferencias"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/menu_cerrar"
         android:title="Cerrar sesion"
         app:showAsAction="never"/>

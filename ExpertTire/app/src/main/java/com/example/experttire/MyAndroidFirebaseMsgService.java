@@ -1,6 +1,5 @@
 package com.example.experttire;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,20 +7,86 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.io.IOException;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+
 public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
+
+
+
+    public void grabar(String token){
+
+        String androidId = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("token", token)
+                .addFormDataPart("dispositivo", androidId)
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://experttire.atwebpages.com/tokenDispositivoService.php/tokenDispositivo")
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    String cadenaJson = response.body().string();
+                    Log.i("====>", cadenaJson);
+
+                    /*
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                        }
+                    }
+                    );
+                    */
+                }
+            }
+        });
+    }
 
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
+
+        grabar(token);
+
+
         Log.d("====>","NEW_TOKEN: "+token);
     }
 

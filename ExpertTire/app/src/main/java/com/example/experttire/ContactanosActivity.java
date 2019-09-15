@@ -114,6 +114,11 @@ public class ContactanosActivity extends AppCompatActivity {
                 Log.i("======>", "click en menu_cerrar...");
                 return true;
 
+            case R.id.menu_preferencias:
+                intent = new Intent(this, PreferenciasActivity.class);
+                startActivity(intent);
+                Log.i("======>", "click en menu_preferencias...");
+                return true;
                 /*
             case R.id.menu_consultar:
                 //showHelp();

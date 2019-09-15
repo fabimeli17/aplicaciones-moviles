@@ -35,12 +35,29 @@ public class DbHelper extends SQLiteOpenHelper {
                 "comentarios VARCHAR(200), " +
                 "estado CHAR(8) NOT NULL )";
         db.execSQL(sqlPedidos);
+
+        /*
+        String sqlDispositivoPreferencia = "CREATE TABLE IF NOT EXISTS dispositivo_preferencias " +
+                "(dispositivo VARCHAR(200), " +
+                "preferencia VARCHAR(200) )";
+        db.execSQL(sqlDispositivoPreferencia);
+
+        String sqlDispositivoToken = "CREATE TABLE IF NOT EXISTS dispositivo_token " +
+                "(token VARCHAR(200) PRIMARY KEY , " +
+                "dispositivo VARCHAR(200) NOT NULL)";
+        db.execSQL(sqlDispositivoToken);
+        */
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS locales");
         db.execSQL("DROP TABLE IF EXISTS pedidosFoto");
+        /*
+        db.execSQL("DROP TABLE IF EXISTS preferencias_usuario");
+        db.execSQL("DROP TABLE IF EXISTS usuario_token");
+        */
         onCreate(db);
     }
 }
