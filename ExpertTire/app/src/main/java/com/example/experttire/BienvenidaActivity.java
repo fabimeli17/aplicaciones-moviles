@@ -20,7 +20,8 @@ public class BienvenidaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bienvenida);
 
         Bundle bundle = getIntent().getExtras();
-        String correo=bundle.getString("correo");
+        //String correo=bundle.getString("correo");
+        String correo = ((Globales) this.getApplication()).getUsuario_correo();
 
         final TextView textoBienvenida = (TextView) findViewById(R.id.nombre);
         textoBienvenida.setText("Bienvenido " + correo);

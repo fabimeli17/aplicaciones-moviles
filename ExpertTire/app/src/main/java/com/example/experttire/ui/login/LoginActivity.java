@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.experttire.BienvenidaActivity;
+import com.example.experttire.Globales;
 import com.example.experttire.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -44,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        ((Globales) this.getApplication()).setUsuario_correo(usernameEditText.getText().toString());
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -124,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
                 if(exito){
                     Intent intent = new Intent(v.getContext(),BienvenidaActivity.class);
-                    intent.putExtra("correo", usernameEditText.getText().toString());
+                    //intent.putExtra("correo", usernameEditText.getText().toString());
                     startActivity(intent);
                 }
 

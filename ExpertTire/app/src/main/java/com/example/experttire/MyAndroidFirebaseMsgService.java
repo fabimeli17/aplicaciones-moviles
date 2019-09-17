@@ -90,18 +90,20 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
         Log.d("====>","NEW_TOKEN: "+token);
     }
 
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         super.onMessageReceived(remoteMessage);
-        Log.i("==========>", "De: " + remoteMessage.getFrom());
-        Log.i("==========>", "Mensaje: " + remoteMessage.getNotification().getBody());
+//        Log.i("==========>", "De: " + remoteMessage.getFrom());
+//        Log.i("==========>", "Mensaje: " + remoteMessage.getNotification().getBody());
 
         if (remoteMessage.getData().size() > 0) {
-            Log.i("======>", "Message data payload: " + remoteMessage.getData());
+//            Log.i("======>", "Message data payload: " + remoteMessage.getData());
             Map<String, String> data = remoteMessage.getData();
+            createNotification(remoteMessage.getData().get("content"));
         } else if (remoteMessage.getNotification() != null) {
-            Log.i("======>", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+ //           Log.i("======>", "Message Notification Body: " + remoteMessage.getNotification().getBody());
             createNotification(remoteMessage.getNotification().getBody());
         }
 
@@ -134,7 +136,7 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                 //.addAction(R.drawable.common_google_signin_btn_icon_light, "ACEPTAR", actionPendingIntent)
                 //.setWhen(System.currentTimeMillis())
                 .setContentIntent(actionPendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                //.setSmallIcon(R.mipmap.ic_launcher_round)
                 //.setBadgeIconType(R.mipmap.ic_launcher)
                 .setContentTitle("Curso de Android")
                 //.setSound(Uri.parse("android.resource://"+getPackageName()+"/" + R.raw.beeep))
@@ -142,6 +144,8 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setContentInfo("SMART");
 
-        notificationManager.notify(/*notification id*/1, notificationBuilder.build());
+        notificationManager.notify(1, notificationBuilder.build());
+
     }
+
 }
