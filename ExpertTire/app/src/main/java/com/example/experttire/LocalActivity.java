@@ -1,73 +1,43 @@
 package com.example.experttire;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.experttire.ui.login.LoginActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-public class NotificacionesActivity extends AppCompatActivity {
-
-
-    private List<NotificacionBean> notificaciones = new ArrayList<NotificacionBean>();
-    private RecyclerView recyclerView;
-    private NotificacionesAdapter mAdapter;
+public class LocalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notificaciones);
+        setContentView(R.layout.activity_local);
+        
+        ArrayList<LocalesBean> listaLocales = ((Globales) this.getApplication()).getListaLocales();
+
+        Bundle bundle = getIntent().getExtras();
+        Integer id = bundle.getInt("local_id");
+        LocalesBean local = listaLocales.get(id);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        TextView txtDescripcion = (TextView) findViewById(R.id.descripcionLocal);
+        txtDescripcion.setText(local.getDescripcion());
 
-        mAdapter = new NotificacionesAdapter(notificaciones);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        TextView txtTelefono = (TextView) findViewById(R.id.telefonoLocal);
+        txtTelefono.setText(local.getTelefono());
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        TextView txtDireccion = (TextView) findViewById(R.id.direccionLocal);
+        txtDireccion.setText(local.getDireccion());
 
-
-        recyclerView.setAdapter(mAdapter);
-
-        prepareNotificacionesData();
 
     }
-
-
-    private void prepareNotificacionesData() {
-
-        NotificacionBean notificacion;
-        Calendar calendar = Calendar.getInstance();
-        Date fecha = new Date();
-
-        for(int i = 1; i <= 20; i++)
-        {
-            calendar.setTime(fecha);
-            calendar.add(Calendar.DAY_OF_YEAR, i);
-            notificacion = new NotificacionBean(i, "Notificacion "+i,
-                    "Descripcion de Notificacion "+i, 1, "01/01/2019", "Activo");
-            notificaciones.add(notificacion);
-        }
-
-
-        mAdapter.notifyDataSetChanged();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,7 +66,6 @@ public class NotificacionesActivity extends AppCompatActivity {
                 startActivity(intent);
                 Log.i("======>", "click en menu_punto_venta...");
                 return true;
-
             case R.id.menu_contactenos:
                 //newGame();
                 intent = new Intent(this, ContactanosActivity.class);
@@ -123,18 +92,10 @@ public class NotificacionesActivity extends AppCompatActivity {
                 Log.i("======>", "click en menu_cerrar...");
                 return true;
 
-            case R.id.menu_preferencias:
-                intent = new Intent(this, PreferenciasActivity.class);
-                startActivity(intent);
-                Log.i("======>", "click en menu_preferencias...");
-                return true;
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 

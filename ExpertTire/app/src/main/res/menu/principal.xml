@@ -38,26 +38,6 @@
         android:title="Cerrar sesion"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/menu_delivery"
-        android:title="Delivery"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_consultar"
-        android:title="Consultar Llantas"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_comprar"
-        android:title="Comprar Llanta"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_asistencia"
-        android:title="Asistencia Técnica"
-        app:showAsAction="never"/>
-
 
 
 

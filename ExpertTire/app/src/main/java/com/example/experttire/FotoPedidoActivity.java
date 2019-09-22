@@ -43,12 +43,12 @@ public class FotoPedidoActivity extends AppCompatActivity {
         byte[] bArray = fotoPedidoBean.getFoto();
         Log.i("FotoPedidoActivity", "====> " + bArray.toString());
         Bitmap bmp = BitmapFactory.decodeByteArray(bArray, 0, bArray.length);
-
-
         miImagen.setImageBitmap(
                 Bitmap.createScaledBitmap(bmp, 250,
                 250, false));
-*/
+
+         */
+
 
     }
 
@@ -77,7 +77,9 @@ public class FotoPedidoActivity extends AppCompatActivity {
         Bitmap photo = ((BitmapDrawable)miImagen.getDrawable()).getBitmap();
         OutputStream bos = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
+
         byte[] bArray = ((ByteArrayOutputStream) bos).toByteArray();
+
         String fecha = (new Date()).toString();
         EditText textComentarios = (EditText) findViewById(R.id.comentarios);
         String comentarios = textComentarios.getText().toString();
@@ -201,46 +203,7 @@ public class FotoPedidoActivity extends AppCompatActivity {
                 Log.i("======>", "click en menu_preferencias...");
                 return true;
 
-                /*
-            case R.id.menu_consultar:
-                //showHelp();
-                Intent intentConsultar = new Intent(this, ConsultaProductosActivity.class);
-                startActivity(intentConsultar);
-                Log.i("======>", "click en menu_consultar...");
-                return true;
-
-            case R.id.menu_delivery:
-                Intent intentMapa = new Intent(this, UbicacionVentaDeliveryActivity.class);
-                startActivity(intentMapa);
-                Log.i("======>", "click en menu_delivery...");
-                return true;
-            case R.id.menu_llamar:
-                Intent intentLlamar = new Intent(this, LlamarTiendaActivity.class);
-                startActivity(intentLlamar);
-                Log.i("======>", "click en menu_llamar...");
-                return true;
-            case R.id.menu_pedido:
-                Intent intentPedido = new Intent(this, FotoPedidoActivity.class);
-                startActivity(intentPedido);
-                Log.i("======>", "click en menu_pedido...");
-                return true;
-            case R.id.menu_comprar:
-                Intent intentComprar = new Intent(this, ComprarProducto.class);
-                startActivity(intentComprar);
-                Log.i("======>", "click en menu_comprar...");
-                return true;
-            case R.id.menu_asistencia:
-                Intent intentAsistencia = new Intent(this, SolicitarAsistenciaActivity.class);
-                startActivity(intentAsistencia);
-                Log.i("======>", "click en menu_asistencia...");
-                return true;
-            case R.id.menu_notificaciones:
-                Intent intentNotificaciones = new Intent(this, NotificacionesActivity.class);
-                startActivity(intentNotificaciones);
-                Log.i("======>", "click en menu_notificaciones...");
-                return true;
-             */
-            default:
+             default:
                 return super.onOptionsItemSelected(item);
         }
     }

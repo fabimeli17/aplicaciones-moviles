@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.experttire.ui.login.LoginActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,11 +17,27 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMapReadyCallback {
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
+    ArrayList<LocalesBean> listaLocales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,31 +71,105 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
 
         mMap = googleMap;
 
-
-
-
-        Double latitud = -12.0888719;
-        Double longitud = -77.0480961;
-        String descripcion = "Punto de Venta 1";
-
-        LatLng ubicacion = new LatLng(latitud, longitud);
-        mMap.addMarker(new MarkerOptions().position(ubicacion).title(descripcion));
-
-        Double latitud2 = -12.0788719;
-        Double longitud2 = -77.0480961;
-        String descripcion2 = "Punto de Venta 2";
-
-        LatLng ubicacion2 = new LatLng(latitud2, longitud2);
-        mMap.addMarker(new MarkerOptions().position(ubicacion2).title(descripcion2));
-
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion, 13F));
-        // Add a marker in Sydney and move the camera
+        LatLng ubicacion1 = new LatLng(-12.087406, -77.057476);
+        listaLocales = ((Globales) this.getApplication()).getListaLocales();
         /*
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-         */
+        listaLocales = (ArrayList<LocalesBean>) buscar();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
+
+        int i = 0;
+        for (LocalesBean local : listaLocales) {
+
+            LatLng ubicacion = new LatLng(local.getLatitud(), local.getLongitud());
+            mMap.addMarker(new MarkerOptions().position(ubicacion).title(local.getDescripcion())).setTag(i);
+            i++;
+        }
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion1, 13F));
+        mMap.setOnMarkerClickListener(this);
+
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+
+
+        LocalesBean local = listaLocales.get((Integer) marker.getTag());
+
+
+
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        /*
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(this,
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+        */
+
+        Intent intent = new Intent(getBaseContext(),LocalActivity.class);
+        intent.putExtra("local_id", clickCount);
+        startActivity(intent);
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+
+
+    public List<LocalesBean> buscar(){
+
+        OkHttpClient client = new OkHttpClient();
+        final List<LocalesBean> lista = new ArrayList<LocalesBean>();
+        Request request = new Request.Builder()
+                .url("http://experttire.atwebpages.com/localesService.php/locales")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    String cadenaJson = response.body().string();
+
+                    Gson gson = new Gson();
+                    Type stringStringMap = new TypeToken<ArrayList<Map<String, Object>>>() { }.getType();
+
+                    final ArrayList<Map<String, Object>> retorno = gson.fromJson(cadenaJson, stringStringMap);
+
+                    for (Map<String, Object> x : retorno) {
+                        LocalesBean local = new LocalesBean();
+                        local.setDescripcion((String) x.get("descripcion"));
+                        local.setLatitud(new Double((String) x.get("latitud")));
+                        local.setLongitud(new Double((String) x.get("longitud")));
+                        lista.add(local);
+                    }
+
+                }
+            }
+        });
+
+        return lista;
     }
 
     @Override
@@ -133,46 +225,7 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
                 Log.i("======>", "click en menu_cerrar...");
                 return true;
 
-                /*
-            case R.id.menu_consultar:
-                //showHelp();
-                Intent intentConsultar = new Intent(this, ConsultaProductosActivity.class);
-                startActivity(intentConsultar);
-                Log.i("======>", "click en menu_consultar...");
-                return true;
-
-            case R.id.menu_delivery:
-                Intent intentMapa = new Intent(this, UbicacionVentaDeliveryActivity.class);
-                startActivity(intentMapa);
-                Log.i("======>", "click en menu_delivery...");
-                return true;
-            case R.id.menu_llamar:
-                Intent intentLlamar = new Intent(this, LlamarTiendaActivity.class);
-                startActivity(intentLlamar);
-                Log.i("======>", "click en menu_llamar...");
-                return true;
-            case R.id.menu_pedido:
-                Intent intentPedido = new Intent(this, FotoPedidoActivity.class);
-                startActivity(intentPedido);
-                Log.i("======>", "click en menu_pedido...");
-                return true;
-            case R.id.menu_comprar:
-                Intent intentComprar = new Intent(this, ComprarProducto.class);
-                startActivity(intentComprar);
-                Log.i("======>", "click en menu_comprar...");
-                return true;
-            case R.id.menu_asistencia:
-                Intent intentAsistencia = new Intent(this, SolicitarAsistenciaActivity.class);
-                startActivity(intentAsistencia);
-                Log.i("======>", "click en menu_asistencia...");
-                return true;
-            case R.id.menu_notificaciones:
-                Intent intentNotificaciones = new Intent(this, NotificacionesActivity.class);
-                startActivity(intentNotificaciones);
-                Log.i("======>", "click en menu_notificaciones...");
-                return true;
-             */
-            default:
+              default:
                 return super.onOptionsItemSelected(item);
         }
     }
