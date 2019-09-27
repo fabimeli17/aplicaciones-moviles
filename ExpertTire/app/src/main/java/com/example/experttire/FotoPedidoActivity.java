@@ -18,10 +18,27 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.experttire.ui.login.LoginActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class FotoPedidoActivity extends AppCompatActivity {
@@ -75,31 +92,85 @@ public class FotoPedidoActivity extends AppCompatActivity {
 
         miImagen = findViewById(R.id.foto);
         Bitmap photo = ((BitmapDrawable)miImagen.getDrawable()).getBitmap();
-        OutputStream bos = new ByteArrayOutputStream();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        //Log.i("====>", bos.toString());
         photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
 
-        byte[] bArray = ((ByteArrayOutputStream) bos).toByteArray();
+        byte[] bArray = bos.toByteArray();
 
         String fecha = (new Date()).toString();
         EditText textComentarios = (EditText) findViewById(R.id.comentarios);
         String comentarios = textComentarios.getText().toString();
 
         FotoPedidoDAO dao = new FotoPedidoDAO(getBaseContext());
-        try {
 
 
-            dao.insertar(
-                    bArray, fecha, "1",comentarios
-            );
-            Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
-            textComentarios.setText("");
-        } catch (DAOException e) {
-            Log.i("FotoPedidoActivity", "====> " + e.getMessage());
-        }
+        grabar(bArray, fecha, "1",comentarios);
+        Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+        textComentarios.setText("");
+
 
     }
+
+    private void grabar(byte[] bArray, String fecha, String usuario, String comentarios)  {
+
+        OkHttpClient client = new OkHttpClient();
+        String foto = "";
+         foto = Base64.getEncoder().encodeToString(bArray);
+        Log.i("====>", foto);
+        Log.i("====>", String.valueOf(bArray[0]));
+
+        //byte[] arreglo = Base64.getDecoder().decode(foto);
+        //Log.i("====>", String.valueOf(arreglo[0]));
+        //Log.i("====>", String.valueOf(arreglo[0]));
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("foto", foto)
+                .addFormDataPart("fecha", fecha)
+                .addFormDataPart("usuario", usuario)
+                .addFormDataPart("comentarios", comentarios)
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://experttire.atwebpages.com/fotoPedidoService.php/insertar")
+                //.url("http://localhost:8080/grabarFoto")
+                //.url("http://desktop-sv7oa86:8080/grabarFoto")
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    String cadenaJson = response.body().string();
+                    Log.i("====>", cadenaJson);
+
+                    /*
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                        }
+                    }
+                    );
+                    */
+                }
+            }
+        });
+    }
+
+
 
     private FotoPedidoBean obtenerFotoPedidoPorUsuario(Integer usuario){
         FotoPedidoBean fotoPedidoBean = new FotoPedidoBean();
