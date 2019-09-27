@@ -1,18 +1,34 @@
 package com.example.experttire;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.experttire.ui.login.LoginActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.util.Date;
+
 public class BienvenidaActivity extends AppCompatActivity {
+
+    private ImageView miImagen;
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +38,38 @@ public class BienvenidaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         //String correo=bundle.getString("correo");
         String correo = ((Globales) this.getApplication()).getUsuario_correo();
+        miImagen = findViewById(R.id.foto_perfil);
+
+        FotoPerfilDAO fotoPerfilDAO = new FotoPerfilDAO(getBaseContext());
+        FotoPerfilBean fotoPerfilBean = obtenerFotoPerfil();
+
+        if (fotoPerfilBean.getCodigo()!=null) {
+
+            byte[] bArray = fotoPerfilBean.getFoto();
+            Log.i("BienvenidaActivity", "====> " + bArray.toString()==null?"":bArray.toString());
+
+            Bitmap bmp = BitmapFactory.decodeByteArray(bArray, 0, bArray.length);
+            miImagen.setImageBitmap(
+                    Bitmap.createScaledBitmap(bmp, 250,
+                            250, false));
+        }
 
         final TextView textoBienvenida = (TextView) findViewById(R.id.nombre);
         textoBienvenida.setText("Bienvenido " + correo);
 
+    }
+
+    private FotoPerfilBean obtenerFotoPerfil(){
+
+        FotoPerfilBean fotoPerfilBean = new FotoPerfilBean();
+        FotoPerfilDAO fotoPerfilDAO = new FotoPerfilDAO(getBaseContext());
+
+        try {
+            fotoPerfilBean = fotoPerfilDAO.obtenerFoto();
+        } catch (DAOException e) {
+            Log.i("BienvenidaActivity", "====> " + e.getMessage());
+        }
+        return  fotoPerfilBean;
     }
 
     @Override
@@ -130,6 +174,45 @@ public class BienvenidaActivity extends AppCompatActivity {
              */
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void cambiarFoto(View view) {
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager())!=null){
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode==RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imagenBit = (Bitmap) extras.get("data");
+            miImagen.setImageBitmap(imagenBit);
+
+            Bitmap photo = ((BitmapDrawable)miImagen.getDrawable()).getBitmap();
+            OutputStream bos = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
+
+            byte[] bArray = ((ByteArrayOutputStream) bos).toByteArray();
+            String fecha = (new Date()).toString();
+
+            FotoPerfilDAO fotoPerfilDAO = new FotoPerfilDAO(getBaseContext());
+
+            try {
+                fotoPerfilDAO.eliminarFoto();
+                fotoPerfilDAO.insertarFoto(bArray, fecha);
+                Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+
+            } catch (DAOException e) {
+                Log.i("FotoPedidoActivity", "====> " + e.getMessage());
+            }
+
         }
     }
 

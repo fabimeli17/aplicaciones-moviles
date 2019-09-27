@@ -10,9 +10,31 @@
         android:id="@+id/nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="264dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/foto_perfil"
+        android:layout_width="153dp"
+        android:layout_height="142dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nophoto" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:onClick="cambiarFoto"
+        android:text="Cambiar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foto_perfil" />
 </androidx.constraintlayout.widget.ConstraintLayout>

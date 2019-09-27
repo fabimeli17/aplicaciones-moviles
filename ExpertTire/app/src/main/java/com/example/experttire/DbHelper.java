@@ -13,7 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public DbHelper(Context context) {
         // null porque se va a usar el SQLiteCursor
-        super(context, "experttire_sql.db", null, 1);
+        super(context, "experttire_sql.db", null, 3);
     }
 
     @Override
@@ -36,6 +36,12 @@ public class DbHelper extends SQLiteOpenHelper {
                 "estado CHAR(8) NOT NULL )";
         db.execSQL(sqlPedidos);
 
+        String sqlFotosPerfil = "CREATE TABLE IF NOT EXISTS fotosPerfil " +
+                "(codigo INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "foto LONGBLOB, " +
+                "fecha DATETIME NOT NULL )";
+        db.execSQL(sqlFotosPerfil);
+
         /*
         String sqlDispositivoPreferencia = "CREATE TABLE IF NOT EXISTS dispositivo_preferencias " +
                 "(dispositivo VARCHAR(200), " +
@@ -54,6 +60,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS locales");
         db.execSQL("DROP TABLE IF EXISTS pedidosFoto");
+        db.execSQL("DROP TABLE IF EXISTS fotosPerfil");
         /*
         db.execSQL("DROP TABLE IF EXISTS preferencias_usuario");
         db.execSQL("DROP TABLE IF EXISTS usuario_token");
