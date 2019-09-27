@@ -98,11 +98,7 @@ public class UbicarPuntoVentaActivity extends AppCompatActivity implements OnMap
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
-
-
-        LocalesBean local = listaLocales.get((Integer) marker.getTag());
-
-
+        //LocalesBean local = listaLocales.get((Integer) marker.getTag());
 
         // Retrieve the data from the marker.
         Integer clickCount = (Integer) marker.getTag();
