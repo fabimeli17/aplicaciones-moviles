@@ -104,8 +104,8 @@ public class FotoPedidoActivity extends AppCompatActivity {
 
         FotoPedidoDAO dao = new FotoPedidoDAO(getBaseContext());
 
-
-        grabar(bArray, fecha, "1",comentarios);
+        Integer usuario = ((Globales) this.getApplication()).getUsuario_codigo();
+        grabar(bArray, fecha, usuario.toString(),comentarios);
         Toast toast= Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();

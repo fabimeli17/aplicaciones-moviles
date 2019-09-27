@@ -8,6 +8,7 @@ public class Globales extends Application {
 
     private String usuario_correo;
     private ArrayList<LocalesBean> listaLocales;
+    private Integer usuario_codigo;
 
 
     public String getUsuario_correo() {
@@ -25,5 +26,13 @@ public class Globales extends Application {
 
     public void setListaLocales(ArrayList<LocalesBean> listaLocales) {
         this.listaLocales = listaLocales;
+    }
+
+    public Integer getUsuario_codigo() {
+        return usuario_codigo;
+    }
+
+    public void setUsuario_codigo(Integer usuario_codigo) {
+        this.usuario_codigo = usuario_codigo;
     }
 }

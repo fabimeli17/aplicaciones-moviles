@@ -29,6 +29,7 @@ import com.example.experttire.BienvenidaActivity;
 import com.example.experttire.Globales;
 import com.example.experttire.LocalesBean;
 import com.example.experttire.R;
+import com.example.experttire.data.model.LoggedInUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -232,9 +233,10 @@ public class LoginActivity extends AppCompatActivity {
 
         loadingProgressBar.setVisibility(View.VISIBLE);
 
-        boolean exito = loginViewModel.login2(usernameEditText.getText().toString(),
+        LoggedInUser loggedInUser = loginViewModel.login3(usernameEditText.getText().toString(),
                 passwordEditText.getText().toString());
-        if(exito){
+        if(loggedInUser.getUserId() != null){
+            ((Globales) this.getApplication()).setUsuario_codigo(new Integer(loggedInUser.getUserId()));
             Intent intent = new Intent(view.getContext(),BienvenidaActivity.class);
             startActivity(intent);
         }

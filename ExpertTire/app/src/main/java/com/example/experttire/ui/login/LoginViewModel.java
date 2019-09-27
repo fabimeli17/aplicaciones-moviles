@@ -59,6 +59,20 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    public LoggedInUser login3(String username, String password) {
+        // can be launched in a separate asynchronous job
+        Result<LoggedInUser> result = loginRepository.login(username, password);
+        LoggedInUser data = new LoggedInUser();
+        if (result instanceof Result.Success) {
+            data = ((Result.Success<LoggedInUser>) result).getData();
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            return data;
+        } else {
+            loginResult.setValue(new LoginResult(R.string.login_failed));
+            return data;
+        }
+    }
+
 
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {
