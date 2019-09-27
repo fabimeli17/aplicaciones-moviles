@@ -8,6 +8,14 @@
     tools:context=".FotoPedidoActivity">
 
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Solicitar Pedido"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textColor="@color/cardview_dark_background"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -21,7 +29,7 @@
     <ImageView
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/imagen_blanco"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
         android:id="@+id/foto"
@@ -41,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="solicitarPedidoFoto"
-        android:text="Solicitar Pedido" />
+        android:text="Registrar Pedido" />
 
 
 </LinearLayout>
