@@ -8,9 +8,19 @@
     tools:context=".ContactanosActivity">
 
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="Contáctanos"
+        android:textSize="25dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textAlignment="center"/>
+
     <Space
         android:layout_width="match_parent"
-        android:layout_height="67dp" />
+        android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/telefono"
@@ -19,13 +29,24 @@
         android:text="TextView"
         android:textAlignment="center" />
 
-    <Button
+    <!-- <Button
         android:id="@+id/llamar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Llamar" />
+        android:text="Llamar" /> -->
 
+
+    <ImageButton
+        android:id="@+id/llamar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/llamar" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
     <EditText
         android:id="@+id/mensaje"
@@ -36,11 +57,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
+    <!-- <Button
         android:id="@+id/enviarMensaje"
         android:layout_gravity="center_horizontal"
         android:text="Enviar SMS"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/> -->
+
+    <ImageButton
+        android:id="@+id/enviarMensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/sms" />
 
 </LinearLayout>

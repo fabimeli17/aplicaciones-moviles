@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.experttire.ui.login.LoginActivity;
@@ -23,7 +24,7 @@ public class ContactanosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contactanos);
-        Button botonLlamar = (Button) findViewById(R.id.llamar);
+        ImageButton botonLlamar = (ImageButton) findViewById(R.id.llamar);
         final TextView textTelefono = (TextView) findViewById(R.id.telefono);
         textTelefono.setText("997939365");
         final String telefono = textTelefono.getText().toString();
@@ -37,7 +38,7 @@ public class ContactanosActivity extends AppCompatActivity {
             }
         });
 
-        Button sendMessageBtn = (Button) findViewById(R.id.enviarMensaje);
+        ImageButton sendMessageBtn = (ImageButton) findViewById(R.id.enviarMensaje);
         final EditText messagetEt = (EditText) findViewById(R.id.mensaje);
         sendMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
